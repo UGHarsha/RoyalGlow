@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server';
-import fetch from 'node-fetch';
-import FormData from 'form-data';
 
 const NATURAL_COLOR_PRESETS: Record<string, string> = {
   blonde: "CAA36B",
@@ -295,10 +293,8 @@ async function runPicsartRecolor(file: { buffer: Buffer, originalname: string, m
   const prompt = `Perfectly recolor ONLY the hair to ${colorPhrase}. The person's face, facial features, skin tone, clothing, hairstyle structure, and the entire background MUST remain 100% identical to the original image. Do not change anything except the hair color.`;
 
   const form = new FormData();
-  form.append('image', file.buffer, {
-    filename: file.originalname || 'upload.jpg',
-    contentType: file.mimetype,
-  });
+  const fileBlob = new Blob([new Uint8Array(file.buffer)], { type: file.mimetype });
+  form.append('image', fileBlob, file.originalname || 'upload.jpg');
   form.append('prompt', prompt);
   form.append('negative_prompt', 'new face, different identity, changed facial features, altered background, different clothing, different hairstyle, deformed, blur');
   form.append('count', '1');
@@ -309,7 +305,6 @@ async function runPicsartRecolor(file: { buffer: Buffer, originalname: string, m
     headers: {
       accept: 'application/json',
       'X-Picsart-API-Key': picsartApiKey,
-      ...form.getHeaders(),
     },
     body: form,
   });
