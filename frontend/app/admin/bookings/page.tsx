@@ -256,8 +256,8 @@ export default function AdminBookingsPage() {
               key={lbl}
               onClick={() => setFilterType(lbl)}
               className={`px-3.5 py-1.5 text-xs font-medium rounded-md capitalize transition ${filterType === lbl
-                  ? "bg-white shadow-sm text-stone-800"
-                  : "text-stone-500 hover:text-stone-700"
+                ? "bg-white shadow-sm text-stone-800"
+                : "text-stone-500 hover:text-stone-700"
                 }`}
             >
               {lbl}

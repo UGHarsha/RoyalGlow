@@ -370,7 +370,7 @@ function HomeContent() {
   }, [bookingView, searchParams, router]);
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] font-sans text-stone-300 overflow-hidden">
+    <main className="min-h-screen bg-[#0A0A0A] font-sans text-stone-300 overflow-hidden relative z-0">
 
       {bookingView !== "none" && (
         <div className="fixed inset-0 z-50 flex items-center justify-center animate-modal-backdrop"
@@ -474,18 +474,16 @@ function HomeContent() {
                           { step: 3, label: "Confirm" }
                         ].map((s) => (
                           <div key={s.step} className="flex items-center gap-2">
-                            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black border ${
-                              bookingStep === s.step
+                            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black border ${bookingStep === s.step
                                 ? "bg-gradient-to-r from-[#E8B88A] to-[#D4A574] text-black border-transparent"
                                 : bookingStep > s.step
                                   ? "bg-emerald-500 text-white border-transparent"
                                   : "bg-white/5 text-stone-500 border-white/10"
-                            }`}>
+                              }`}>
                               {bookingStep > s.step ? "✓" : s.step}
                             </span>
-                            <span className={`text-[10px] uppercase tracking-wider font-sans font-bold ${
-                              bookingStep === s.step ? "text-[#E8B88A]" : "text-stone-500"
-                            }`}>
+                            <span className={`text-[10px] uppercase tracking-wider font-sans font-bold ${bookingStep === s.step ? "text-[#E8B88A]" : "text-stone-500"
+                              }`}>
                               {s.label}
                             </span>
                           </div>
@@ -515,11 +513,10 @@ function HomeContent() {
                                 onClick={() => {
                                   setManualForm(prev => ({ ...prev, category: cat.id, service: "" }));
                                 }}
-                                className={`px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider font-sans font-extrabold transition-all border ${
-                                  manualForm.category === cat.id
+                                className={`px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider font-sans font-extrabold transition-all border ${manualForm.category === cat.id
                                     ? "bg-gradient-to-r from-[#E8B88A] to-[#D4A574] text-black border-transparent shadow-lg"
                                     : "bg-white/5 text-stone-200 border-white/10 hover:bg-white/10"
-                                }`}
+                                  }`}
                               >
                                 {cat.label}
                               </button>
@@ -538,11 +535,10 @@ function HomeContent() {
                                   onClick={() => {
                                     setManualForm(prev => ({ ...prev, service: svcStr }));
                                   }}
-                                  className={`w-full p-4 rounded-xl text-left border transition-all flex justify-between items-center ${
-                                    isSelected
+                                  className={`w-full p-4 rounded-xl text-left border transition-all flex justify-between items-center ${isSelected
                                       ? "bg-white/[0.06] border-[#E8B88A] shadow-[0_0_20px_rgba(232,184,138,0.15)]"
                                       : "bg-white/[0.02] border-white/10 hover:border-white/20 hover:bg-white/[0.04]"
-                                  }`}
+                                    }`}
                                 >
                                   <div>
                                     <p className="text-base text-white font-sans font-extrabold">{s.name}</p>
@@ -621,11 +617,10 @@ function HomeContent() {
                                       key={slot.time}
                                       type="button"
                                       onClick={() => setManualForm(prev => ({ ...prev, time: slot.time }))}
-                                      className={`py-3.5 px-2 rounded-xl text-[11px] font-sans font-extrabold tracking-wider text-center border transition-all ${
-                                        isSelected
+                                      className={`py-3.5 px-2 rounded-xl text-[11px] font-sans font-extrabold tracking-wider text-center border transition-all ${isSelected
                                           ? "bg-[#E8B88A] text-black border-transparent shadow-[0_0_15px_rgba(232,184,138,0.25)]"
                                           : "bg-white/[0.02] border-white/10 text-stone-200 hover:border-white/30 hover:bg-white/[0.04]"
-                                      }`}
+                                        }`}
                                     >
                                       {slot.time}
                                     </button>
@@ -733,74 +728,20 @@ function HomeContent() {
                       )}
                     </div>
                   )}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    )}
+      )}
 
 
 
-      {/* Hero Section - Split-Screen Cinematic */}
-      <section className="relative text-white min-h-screen flex flex-col md:flex-row items-stretch justify-start overflow-hidden">
-        {/* Left Half: Pure Black Panel with Content */}
-        <div className="w-full md:w-[50%] bg-black flex flex-col justify-center px-8 sm:px-12 lg:px-20 py-28 relative z-20">
-          <div className="absolute top-1/4 left-10 w-72 h-72 bg-[#E8B88A]/5 rounded-full blur-[100px] pointer-events-none" />
-          
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.8 }}
-            className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/5 bg-white/[0.02] backdrop-blur-md mb-8 self-start"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E8B88A] animate-pulse" />
-            <span className="text-[9px] tracking-[0.35em] uppercase font-black text-stone-400">Matara&apos;s Premium Sanctuary</span>
-          </motion.div>
+      {/* Hero Section - Cinematic Overlay on Mobile, Split on Desktop */}
+      <section className="relative text-white min-h-screen flex md:flex-row items-stretch overflow-hidden">
 
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl sm:text-6xl lg:text-7xl font-serif mb-6 leading-[1.05] tracking-tight font-light"
-          >
-            Refining <br />
-            <span className="italic font-bold bg-gradient-to-r from-[#E8B88A] to-[#C77DFF] bg-clip-text text-transparent">Elegance</span>
-          </motion.h1>
-
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-stone-400 max-w-md mb-10 text-sm font-light leading-relaxed"
-          >
-            A cinematic escape of sophisticated design. Timeless artistry meets modern innovation to redefine your unique essence.
-          </motion.p>
-
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center mb-16"
-          >
-            <button onClick={() => handleBookingAction("manual")}
-              className="px-8 py-4 bg-gradient-to-r from-[#E8B88A] to-[#D4A574] text-black tracking-[0.2em] uppercase text-[10px] font-black rounded-full hover:shadow-[0_0_30px_rgba(232,184,138,0.4)] transition-all duration-500 hover:scale-105 active:scale-95"
-            >
-              Reserve Your Visit
-            </button>
-            <button onClick={() => handleBookingAction("ai")}
-              className="group px-8 py-4 tracking-[0.2em] uppercase text-[10px] font-black rounded-full border border-white/10 backdrop-blur-md bg-white/[0.02] hover:bg-white/5 transition-all duration-500 flex items-center justify-center gap-2"
-            >
-              <span className="text-white">Consult Bella AI</span>
-              <svg className="w-3.5 h-3.5 text-[#E8B88A] group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </button>
-          </motion.div>
-
-          {/* Integrated Stats Bar */}
-          <div className="grid grid-cols-3 gap-6 pt-10 border-t border-white/5 max-w-md">
-            {[
-              { number: "5+", label: "Years Experience" },
-              { number: "2k+", label: "Happy Clients" },
-              { number: "15+", label: "Expert Stylists" },
-            ].map((stat, idx) => (
-              <motion.div key={idx} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 + idx * 0.1 }}>
-                <p className="text-2xl font-serif font-black text-[#E8B88A]">{stat.number}</p>
-                <p className="text-stone-600 text-[8px] uppercase tracking-[0.15em] font-bold mt-1">{stat.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Right Half: Full Bleed Image Carousel */}
-        <div className="w-full md:w-[50%] relative min-h-[50vh] md:min-h-screen z-10 overflow-hidden">
+        {/* Image Carousel - fullscreen background on mobile, right half on desktop */}
+        <div className="absolute inset-0 md:relative md:w-[50%] md:order-2 z-0 md:z-10 md:min-h-screen overflow-hidden">
           <AnimatePresence>
             {heroImages.map((src, idx) => (
               idx === currentHeroSlide && (
@@ -812,23 +753,81 @@ function HomeContent() {
                   transition={{ duration: 1.8, ease: "easeInOut" }}
                   className="absolute inset-0"
                 >
-                  <Image src={src} alt={`Luxury Salon ${idx + 1}`} fill priority sizes="50vw" className="object-cover" />
+                  <Image src={src} alt={`Luxury Salon ${idx + 1}`} fill priority sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                 </motion.div>
               )
             ))}
           </AnimatePresence>
-          
-          {/* Gradient Overlay linking split components */}
+
+          {/* Gradient overlays */}
           <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent z-10" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent z-10" />
+          {/* Mobile-only dark overlay for text readability */}
+          <div className="absolute inset-0 bg-black/60 md:hidden z-[11]" />
 
-          {/* Vertical Slide Indicators */}
-          <div className="absolute right-6 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-3">
+          {/* Slide Indicators */}
+          <div className="absolute right-4 md:right-6 bottom-6 md:bottom-auto md:top-1/2 md:-translate-y-1/2 z-30 flex flex-row md:flex-col gap-2 md:gap-3">
             {heroImages.map((_, idx) => (
-              <button key={idx} onClick={() => setCurrentHeroSlide(idx)} className={`w-1 rounded-full transition-all duration-500 ${idx === currentHeroSlide ? 'h-8 bg-[#E8B88A]' : 'h-3 bg-white/20 hover:bg-white/40'}`} />
+              <button key={idx} onClick={() => setCurrentHeroSlide(idx)} className={`rounded-full transition-all duration-500 ${idx === currentHeroSlide ? 'w-6 h-1 md:w-1 md:h-8 bg-[#E8B88A]' : 'w-2 h-1 md:w-1 md:h-3 bg-white/20 hover:bg-white/40'}`} />
             ))}
           </div>
         </div>
+
+        {/* Content Panel - overlaid on image on mobile, left half on desktop */}
+        <div className="w-full md:w-[50%] md:order-1 md:bg-black flex flex-col justify-center px-6 sm:px-12 lg:px-20 pt-28 pb-16 md:py-28 relative z-10 md:z-20 min-h-screen md:min-h-0">
+          <div className="absolute top-1/4 left-10 w-72 h-72 bg-[#E8B88A]/5 rounded-full blur-[100px] pointer-events-none" />
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.8 }}
+            className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/5 bg-white/[0.02] backdrop-blur-md mb-8 self-start"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E8B88A] animate-pulse" />
+            <span className="text-[9px] tracking-[0.35em] uppercase font-black text-stone-400">Matara&apos;s Premium Sanctuary</span>
+          </motion.div>
+
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="text-3xl sm:text-5xl lg:text-7xl font-serif mb-4 sm:mb-6 leading-[1.05] tracking-tight font-light"
+          >
+            Refining <br />
+            <span className="italic font-bold bg-gradient-to-r from-[#E8B88A] to-[#C77DFF] bg-clip-text text-transparent">Elegance</span>
+          </motion.h1>
+
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8 }}
+            className="text-stone-300 md:text-stone-400 max-w-md mb-6 sm:mb-10 text-xs sm:text-sm font-light leading-relaxed"
+          >
+            A cinematic escape of sophisticated design. Timeless artistry meets modern innovation to redefine your unique essence.
+          </motion.p>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center mb-8 sm:mb-16"
+          >
+            <button onClick={() => handleBookingAction("manual")}
+              className="px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-[#E8B88A] to-[#D4A574] text-black tracking-[0.2em] uppercase text-[10px] font-black rounded-full hover:shadow-[0_0_30px_rgba(232,184,138,0.4)] transition-all duration-500 hover:scale-105 active:scale-95 text-center"
+            >
+              Reserve Your Visit
+            </button>
+            <button onClick={() => handleBookingAction("ai")}
+              className="group px-6 sm:px-8 py-3.5 sm:py-4 tracking-[0.2em] uppercase text-[10px] font-black rounded-full border border-white/10 backdrop-blur-md bg-white/[0.02] hover:bg-white/5 transition-all duration-500 flex items-center justify-center gap-2"
+            >
+              <span className="text-white">Consult Bella AI</span>
+              <svg className="w-3.5 h-3.5 text-[#E8B88A] group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </button>
+          </motion.div>
+
+          {/* Integrated Stats Bar */}
+          <div className="grid grid-cols-3 gap-4 sm:gap-6 pt-6 sm:pt-10 border-t border-white/5 max-w-md">
+            {[
+              { number: "5+", label: "Years Experience" },
+              { number: "2k+", label: "Happy Clients" },
+              { number: "15+", label: "Expert Stylists" },
+            ].map((stat, idx) => (
+              <motion.div key={idx} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 + idx * 0.1 }}>
+                <p className="text-xl sm:text-2xl font-serif font-black text-[#E8B88A]">{stat.number}</p>
+                <p className="text-stone-500 md:text-stone-600 text-[7px] sm:text-[8px] uppercase tracking-[0.15em] font-bold mt-1">{stat.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
       </section>
 
 
@@ -836,7 +835,7 @@ function HomeContent() {
       {/* About Section - Storytelling Redesign */}
       <section id="about" className="py-32 px-6 md:px-12 bg-[#0A0A0A] relative overflow-hidden border-t border-white/5">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-16 items-center relative z-10">
-          
+
           {/* Left: Dynamic Grid Showcase */}
           <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-6 relative h-[500px] md:h-[600px] group"
@@ -847,7 +846,7 @@ function HomeContent() {
 
             {/* Accent Border Layout */}
             <div className="absolute inset-0 border border-[#E8B88A]/20 -translate-x-4 translate-y-4 rounded-3xl group-hover:translate-x-[-8px] group-hover:translate-y-[8px] transition-transform duration-700" />
-            
+
             {/* Main Image */}
             <div className="absolute inset-0 rounded-3xl overflow-hidden bg-zinc-900 border border-white/5 shadow-2xl">
               <Image
@@ -911,9 +910,7 @@ function HomeContent() {
               <div>
                 <p className="text-[8px] uppercase tracking-[0.2em] text-stone-500 font-bold mb-3">Founder & Creative Director</p>
                 <div className="flex items-center gap-3.5">
-                  <div className="w-12 h-12 rounded-xl bg-zinc-900 overflow-hidden relative border border-white/5">
-                    <Image src="/customers/1778774396808-672056452.jpg" alt="Sarah Jenkins" fill sizes="48px" className="object-cover" />
-                  </div>
+
                   <div>
                     <p className="text-base font-serif text-white font-bold">Sarah Jenkins</p>
                     <p className="text-[10px] text-[#E8B88A] font-bold mt-0.5">Master Hair Stylist</p>
@@ -936,7 +933,7 @@ function HomeContent() {
       <section className="py-32 px-6 md:px-12 bg-[#0F0F0F] relative overflow-hidden border-t border-white/5">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#E8B88A]/3 rounded-full blur-[120px] pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
-          
+
           {/* Section Header */}
           <div className="text-center mb-24">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
@@ -1051,7 +1048,7 @@ function HomeContent() {
               className="text-3xl md:text-5xl font-serif text-white tracking-tight"
             >The Look <span className="italic font-bold bg-gradient-to-r from-[#E8B88A] to-[#C77DFF] bg-clip-text text-transparent">Book</span></motion.h2>
           </div>
-          
+
           <div className="columns-2 md:columns-3 lg:columns-4 gap-5 space-y-5">
             {lookbookData.map((img, idx) => (
               <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
